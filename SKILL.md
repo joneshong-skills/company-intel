@@ -27,11 +27,11 @@ Main context (target identification + report synthesis)
   └─ Task(subagent_type: researcher, prompt: "Search for news, reviews, and reputation signals for {company name}. Return ONLY a bullet-point summary of key findings.")
 ```
 
-> **Execution routing**: Per-angle research (registration, news, reputation) → delegate to `researcher` agent (uses WebSearch/WebFetch). Cross-source aggregation (3+ sources) → **main context** uses `sandbox_execute` directly (sub-agents cannot access MCP tools).
+> **Execution routing**: Per-angle research (registration, news, reputation) → delegate to `researcher` agent (uses WebSearch/WebFetch). Cross-source aggregation (3+ sources) → **main context** uses `sandbox_execute` directly (external HTTP now supported; sub-agents cannot access MCP tools).
 
 ## Workflow
 
-> **Sandbox limitation**: `sandbox_execute` network is restricted to localhost — it cannot fetch external URLs (twincn, 1111, CENS, etc.). Use `researcher` agents with WebSearch/WebFetch for external data gathering. Sandbox can only aggregate LOCAL files already saved to `~/Claude/` (e.g., cross-referencing pre-fetched results).
+> **Sandbox acceleration**: Batch data gathering from multiple sources runs efficiently in `sandbox_execute` — external HTTP is now supported. Combine multiple API calls and web scraping into a single sandbox execution.
 
 ### Step 1 — Identify the Target
 
@@ -137,8 +137,8 @@ Always include confidence levels for inferred data (High/Medium/Low).
 
 Batch operations benefit from `sandbox_execute`:
 
-- **Local result aggregation only**: After researchers fetch data via WebSearch/WebFetch, sandbox can cross-reference pre-saved results from `~/Claude/` — NOT for fetching external URLs (sandbox network is localhost only)
-- Saves context tokens when merging 3+ pre-fetched result files
+- **Batch external data gathering**: Fetch from multiple sources (twincn, 1111, CENS) in a single sandbox execution — external HTTP now supported
+- **Cross-source aggregation**: Sandbox reads, merges, and cross-references results from `~/Claude/` for downstream analysis
 
 Principle: **Deterministic batch work → sandbox; reasoning/presentation → LLM.**
 
