@@ -27,9 +27,11 @@ Main context (target identification + report synthesis)
   └─ Task(subagent_type: researcher, prompt: "Search for news, reviews, and reputation signals for {company name}. Return ONLY a bullet-point summary of key findings.")
 ```
 
+> **Execution routing**: Per-angle research (registration, news, reputation) → delegate to `researcher` agent (uses WebSearch/WebFetch). Cross-source aggregation (3+ sources) → **main context** uses `sandbox_execute` directly (sub-agents cannot access MCP tools).
+
 ## Workflow
 
-> **Sandbox acceleration**: When collecting and cross-referencing data from 3+ sources (twincn, 1111, CENS, news searches), use `sandbox_execute` to fetch and aggregate all sources in one call, returning a structured intelligence summary instead of raw HTML content.
+> **Sandbox limitation**: `sandbox_execute` network is restricted to localhost — it cannot fetch external URLs (twincn, 1111, CENS, etc.). Use `researcher` agents with WebSearch/WebFetch for external data gathering. Sandbox can only aggregate LOCAL files already saved to `~/Claude/` (e.g., cross-referencing pre-fetched results).
 
 ### Step 1 — Identify the Target
 
@@ -135,8 +137,8 @@ Always include confidence levels for inferred data (High/Medium/Low).
 
 Batch operations benefit from `sandbox_execute`:
 
-- **Batch data collection and analysis**: Fetch and cross-reference multiple data sources (twincn, 1111, CENS, news) in one sandbox call, returning structured intelligence summaries instead of raw HTML responses
-- Saves context tokens when handling 3+ data sources simultaneously
+- **Local result aggregation only**: After researchers fetch data via WebSearch/WebFetch, sandbox can cross-reference pre-saved results from `~/Claude/` — NOT for fetching external URLs (sandbox network is localhost only)
+- Saves context tokens when merging 3+ pre-fetched result files
 
 Principle: **Deterministic batch work → sandbox; reasoning/presentation → LLM.**
 
@@ -148,6 +150,7 @@ Principle: **Deterministic batch work → sandbox; reasoning/presentation → LL
   analyzes market positioning and strategy. Complement, don't overlap.
 - **`/smart-search`** — Use for supplementary research when standard data sources
   don't cover the target (e.g., international companies, startups).
+- **meeting-insights** — Company context enriches meeting analysis
 
 ## Additional Resources
 
