@@ -1,14 +1,9 @@
 ---
 name: company-intel
-description: >-
-  This skill should be used when the user asks to "investigate this company",
-  "background check on this client", "research company info", "due diligence",
-  "調查這家公司", "客戶背景調查", "公司盡職調查", "查一下這家公司",
-  "幫我調查對方", "evaluate client budget capacity", mentions company
-  investigation, client research, or discusses assessing a business partner's
-  financial capacity before negotiation.
+description: "company, intel, investigate, background, check, client, research, 調查這家公司, 客戶背景調查, 公司盡職調查, 查一下這家公司"
 version: 0.2.0
 tools: Bash, Read, Write, WebSearch, WebFetch, sandbox_execute
+disable-model-invocation: true
 ---
 
 # Company Intel
@@ -138,7 +133,7 @@ Always include confidence levels for inferred data (High/Medium/Low).
 Batch operations benefit from `sandbox_execute`:
 
 - **Batch external data gathering**: Fetch from multiple sources (twincn, 1111, CENS) in a single sandbox execution — external HTTP now supported
-- **Cross-source aggregation**: Sandbox reads, merges, and cross-references results from `~/Claude/` for downstream analysis
+- **Cross-source aggregation**: Sandbox reads, merges, and cross-references results from `~/workshop/outputs/` for downstream analysis
 
 Principle: **Deterministic batch work → sandbox; reasoning/presentation → LLM.**
 
