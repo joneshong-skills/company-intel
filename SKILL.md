@@ -3,7 +3,6 @@ name: company-intel
 description: "company, intel, investigate, background, check, client, research, 調查這家公司, 客戶背景調查, 公司盡職調查, 查一下這家公司"
 version: 0.2.0
 tools: Bash, Read, Write, WebSearch, WebFetch, sandbox_execute
-disable-model-invocation: true
 ---
 
 # Company Intel
