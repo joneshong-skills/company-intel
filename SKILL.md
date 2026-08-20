@@ -132,7 +132,7 @@ Always include confidence levels for inferred data (High/Medium/Low).
 Batch operations benefit from `sandbox_execute`:
 
 - **Batch external data gathering**: Fetch from multiple sources (twincn, 1111, CENS) in a single sandbox execution — external HTTP now supported
-- **Cross-source aggregation**: Sandbox reads, merges, and cross-references results from `~/workshop/outputs/` for downstream analysis
+- **Cross-source aggregation**: Sandbox reads, merges, and cross-references results from `~/.claude/outputs/` for downstream analysis
 
 Principle: **Deterministic batch work → sandbox; reasoning/presentation → LLM.**
 
